@@ -1,0 +1,328 @@
+* {
+  box-sizing: border-box;
+}
+
+:root {
+  --gold: #d8b66c;
+  --gold-light: #f2d99c;
+  --gold-dark: #8f6b32;
+  --black: #070707;
+  --panel: rgba(255,255,255,.065);
+  --border: rgba(216,182,108,.24);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  overflow-x: hidden;
+  font-family: Inter, Arial, Helvetica, sans-serif;
+  color: #fff;
+  background:
+    radial-gradient(circle at 50% 5%, rgba(216,182,108,.16), transparent 25%),
+    radial-gradient(circle at 10% 65%, rgba(255,255,255,.055), transparent 23%),
+    radial-gradient(circle at 90% 80%, rgba(216,182,108,.09), transparent 25%),
+    linear-gradient(145deg, #26231f 0%, #11100f 35%, #050505 100%);
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  opacity: .11;
+  background-image:
+    linear-gradient(rgba(255,255,255,.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.08) 1px, transparent 1px);
+  background-size: 42px 42px;
+  mask-image: linear-gradient(to bottom, black, transparent 75%);
+}
+
+.glow {
+  position: fixed;
+  width: 340px;
+  height: 340px;
+  border-radius: 50%;
+  filter: blur(90px);
+  pointer-events: none;
+  opacity: .15;
+  animation: drift 8s ease-in-out infinite alternate;
+}
+
+.glow-one {
+  top: -120px;
+  left: -130px;
+  background: var(--gold);
+}
+
+.glow-two {
+  right: -160px;
+  bottom: -100px;
+  background: #fff;
+  animation-delay: -3s;
+}
+
+.page {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  padding: 38px 18px 35px;
+}
+
+.profile {
+  width: min(100%, 540px);
+  text-align: center;
+  position: relative;
+  z-index: 1;
+  animation: pageIn .8s ease both;
+}
+
+.photo-wrap {
+  position: relative;
+  width: 138px;
+  height: 138px;
+  margin: 0 auto 18px;
+}
+
+.photo-wrap img {
+  position: absolute;
+  inset: 6px;
+  width: calc(100% - 12px);
+  height: calc(100% - 12px);
+  object-fit: cover;
+  object-position: center 28%;
+  border-radius: 50%;
+  border: 3px solid #0b0b0b;
+  box-shadow: 0 12px 40px rgba(0,0,0,.45);
+}
+
+.photo-ring {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: conic-gradient(
+    from 0deg,
+    var(--gold-dark),
+    var(--gold-light),
+    #fff,
+    var(--gold),
+    var(--gold-dark)
+  );
+  animation: spin 7s linear infinite;
+  box-shadow: 0 0 35px rgba(216,182,108,.22);
+}
+
+h1 {
+  margin: 0;
+  font-size: clamp(25px, 6vw, 36px);
+  line-height: 1.1;
+  letter-spacing: -.8px;
+  text-shadow: 0 4px 22px rgba(0,0,0,.45);
+}
+
+.subtitle {
+  margin: 10px 0 23px;
+  color: #d7d2c8;
+  font-size: 15px;
+}
+
+.video-card {
+  margin: 0 0 15px;
+  padding: 12px;
+  border-radius: 20px;
+  background: rgba(0,0,0,.34);
+  border: 1px solid var(--border);
+  box-shadow: 0 15px 40px rgba(0,0,0,.28);
+  backdrop-filter: blur(12px);
+}
+
+.video-title {
+  text-align: left;
+  margin: 2px 4px 10px;
+  color: var(--gold-light);
+  font-weight: 700;
+  font-size: 14px;
+}
+
+.video-frame {
+  position: relative;
+  overflow: hidden;
+  border-radius: 13px;
+  aspect-ratio: 16 / 9;
+  background: #000;
+}
+
+.video-frame iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.booking,
+.link {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  min-height: 62px;
+  border-radius: 17px;
+  text-decoration: none;
+  transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease, background .2s ease;
+}
+
+.booking {
+  justify-content: center;
+  gap: 11px;
+  margin-bottom: 12px;
+  overflow: hidden;
+  color: #111;
+  background: linear-gradient(110deg, #9b7335, #f0d28e 48%, #b78b46);
+  box-shadow: 0 12px 32px rgba(0,0,0,.34), 0 0 25px rgba(216,182,108,.12);
+}
+
+.booking::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -80%;
+  width: 45%;
+  height: 100%;
+  background: linear-gradient(100deg, transparent, rgba(255,255,255,.5), transparent);
+  transform: skewX(-20deg);
+  animation: shine 4s ease-in-out infinite;
+}
+
+.booking-icon {
+  font-size: 23px;
+}
+
+.booking-text strong,
+.booking-text small {
+  display: block;
+}
+
+.booking-text strong {
+  font-size: 16px;
+}
+
+.booking-text small {
+  margin-top: 3px;
+  font-size: 14px;
+  opacity: .78;
+}
+
+.booking .arrow {
+  color: #241b0d;
+}
+
+.links {
+  display: grid;
+  gap: 11px;
+}
+
+.link {
+  justify-content: center;
+  color: #fff;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  backdrop-filter: blur(13px);
+  box-shadow: 0 9px 28px rgba(0,0,0,.2);
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.link:hover,
+.booking:hover {
+  transform: translateY(-3px) scale(1.008);
+  border-color: rgba(242,217,156,.6);
+  box-shadow: 0 16px 38px rgba(0,0,0,.35), 0 0 22px rgba(216,182,108,.11);
+}
+
+.link:active,
+.booking:active {
+  transform: translateY(0) scale(.99);
+}
+
+.social {
+  position: absolute;
+  left: 19px;
+  display: grid;
+  place-items: center;
+  width: 31px;
+  height: 31px;
+  border-radius: 10px;
+  color: #fff;
+  font-size: 18px;
+  background: rgba(255,255,255,.08);
+  border: 1px solid rgba(255,255,255,.09);
+}
+
+.instagram { font-size: 22px; }
+.youtube { font-size: 15px; }
+.facebook { font-family: Arial, sans-serif; font-weight: 800; }
+.tiktok { font-size: 20px; }
+
+.arrow {
+  position: absolute;
+  right: 19px;
+  color: var(--gold-light);
+  font-size: 19px;
+  transition: transform .2s ease;
+}
+
+.link:hover .arrow {
+  transform: translate(3px, -2px);
+}
+
+.footer {
+  margin: 26px 0 0;
+  color: #89847b;
+  font-size: 12px;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes shine {
+  0%, 55% { left: -80%; }
+  100% { left: 140%; }
+}
+
+@keyframes drift {
+  from { transform: translate3d(0,0,0) scale(1); }
+  to { transform: translate3d(35px,-20px,0) scale(1.12); }
+}
+
+@keyframes pageIn {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .page {
+    padding-top: 25px;
+  }
+
+  .photo-wrap {
+    width: 120px;
+    height: 120px;
+  }
+
+  .link,
+  .booking {
+    min-height: 59px;
+  }
+}

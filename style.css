@@ -466,3 +466,25 @@ h1 { font-size:clamp(21px,3.8vh,29px); }
 @keyframes review-glide-left { 0% { opacity:0; transform:translateX(-22px) scale(.97); filter:blur(3px); box-shadow:0 0 0 rgba(216,182,108,0); } 65% { opacity:1; filter:blur(0); box-shadow:0 0 17px rgba(216,182,108,.12); } 100% { opacity:1; transform:translateX(0) scale(1); filter:blur(0); box-shadow:0 0 0 rgba(216,182,108,0); } }
 @media(max-width:390px) { .review-carousel { padding:0 20px; } .review-carousel .review-navigation button { width:25px; } .review-carousel #review-prev { left:-9px; } .review-carousel #review-next { right:-9px; } }
 @media(prefers-reduced-motion:reduce) { .review-carousel .review-card,.review-carousel .review-card.review-slide-left { animation:none; } .review-carousel .review-navigation button { transition:none; } }
+
+/* Carousel controls fully inside the review frame, as round gold bubbles */
+.review-carousel { padding:0; }
+.review-carousel .review-card { padding:16px 49px; min-height:142px; }
+.review-carousel .review-navigation { inset:0; }
+.review-carousel .review-navigation button {
+  width:36px; height:36px; border-radius:50%;
+  border:1px solid rgba(240,206,124,.65);
+  background:linear-gradient(145deg,rgba(205,164,81,.26),rgba(60,43,19,.85));
+  color:#ffe0a0; font-size:27px; font-weight:600;
+  box-shadow:0 2px 10px rgba(0,0,0,.28),inset 0 1px 0 rgba(255,255,255,.14);
+}
+.review-carousel #review-prev { left:7px; }
+.review-carousel #review-next { right:7px; }
+.review-carousel .review-navigation button:hover { background:rgba(216,182,108,.35); box-shadow:0 0 15px rgba(216,182,108,.28); }
+@media(max-width:390px) {
+  .review-carousel { padding:0; }
+  .review-carousel .review-card { padding:14px 42px; }
+  .review-carousel .review-navigation button { width:30px; height:30px; font-size:24px; }
+  .review-carousel #review-prev { left:5px; }
+  .review-carousel #review-next { right:5px; }
+}

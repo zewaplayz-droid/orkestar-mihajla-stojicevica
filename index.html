@@ -99,7 +99,8 @@
           </div>
           <label for="review-comment">Vaše mišljenje</label>
           <textarea id="review-comment" name="comment" minlength="10" maxlength="1000" rows="4" required></textarea>
-          <p class="review-note">Recenzija se objavljuje nakon provere. Prihvatamo i pohvale i kritike.</p>
+          <div id="review-turnstile" aria-label="Zaštita od automatskog slanja" style="margin: 14px 0;"></div>
+          <p class="review-note">Recenzija se objavljuje automatski ako prođe proveru; sumnjive recenzije čekaju odobrenje. Prihvatamo i pohvale i kritike.</p>
           <button class="review-submit" type="submit">Pošalji recenziju</button>
           <p id="review-feedback" role="status"></p>
         </form>
@@ -107,6 +108,7 @@
       <p class="footer">© Orkestar Mihajla Stojićevića</p>
     </section>
   </main>
+  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit" async defer></script>
   <script src="reviews.js" defer></script>
 </body>
 </html>

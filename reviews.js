@@ -77,7 +77,7 @@ function startReviewTimer() {
   if (approvedReviews.length > 1 && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
     reviewTimer = setInterval(() => {
       if (!document.hidden && !list.matches(":hover") && !list.contains(document.activeElement)) showReview(activeReview + 1);
-    }, 6000);
+    }, 12000);
   }
 }
 function navigateReviews(direction) {

@@ -80,8 +80,8 @@
         <div id="reviews-list" class="reviews-list" aria-live="polite">Učitavanje recenzija...</div>
         <button type="button" id="review-toggle" class="review-toggle" aria-expanded="false">Ostavite recenziju</button>
         <form id="review-form" class="review-form" hidden>
-          <label for="review-name">Ime</label>
-          <input id="review-name" name="name" minlength="2" maxlength="60" required>
+          <label for="review-name">Ime i prezime (obavezno)</label>
+          <input id="review-name" name="name" minlength="3" maxlength="60" placeholder="Npr. Marko Marković" autocomplete="name" required pattern="[^\\s]+\\s+[^\\s]+.*" title="Unesite ime i prezime, odvojene razmakom.">
           <label id="review-rating-label">Vaša ocena — prevucite prstom preko zvezdica</label>
           <div id="review-stars" class="review-stars-input" role="group" aria-labelledby="review-rating-label">
             <input id="review-rating" type="hidden" name="rating" value="5">

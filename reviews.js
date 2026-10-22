@@ -55,12 +55,12 @@ const reviewNext = document.getElementById("review-next");
 let approvedReviews = [];
 let activeReview = 0;
 let reviewTimer;
-function showReview(index) {
+function showReview(index, direction = 1) {
   if (!approvedReviews.length) return;
   activeReview = (index + approvedReviews.length) % approvedReviews.length;
   const review = approvedReviews[activeReview];
   const card = document.createElement("article");
-  card.className = "review-card";
+  card.className = "review-card review-slide-" + (direction < 0 ? "left" : "right");
   const name = document.createElement("strong");
   name.textContent = review.name;
   const comment = document.createElement("p");
@@ -81,7 +81,7 @@ function startReviewTimer() {
   }
 }
 function navigateReviews(direction) {
-  showReview(activeReview + direction);
+  showReview(activeReview + direction, direction);
   startReviewTimer();
 }
 reviewPrev.addEventListener("click", () => navigateReviews(-1));
@@ -105,14 +105,17 @@ async function loadReviews() {
     if (!approvedReviews.length) {
       list.textContent = "Još nema objavljenih recenzija. Budite prvi koji će podeliti mišljenje!";
       reviewNavigation.hidden = true;
+      reviewPosition.hidden = true;
       return;
     }
     reviewNavigation.hidden = approvedReviews.length < 2;
+    reviewPosition.hidden = approvedReviews.length < 2;
     showReview(0);
     startReviewTimer();
   } catch {
     list.textContent = "Recenzije trenutno nisu dostupne. Pokušajte ponovo kasnije.";
     reviewNavigation.hidden = true;
+    reviewPosition.hidden = true;
   }
 }
 form.addEventListener("submit", async event => {

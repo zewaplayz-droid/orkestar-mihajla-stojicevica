@@ -82,14 +82,15 @@
         <form id="review-form" class="review-form" hidden>
           <label for="review-name">Ime</label>
           <input id="review-name" name="name" minlength="2" maxlength="60" required>
-          <label for="review-rating">Ocena (1–5)</label>
-          <select id="review-rating" name="rating" required>
-            <option value="5">★★★★★ (5)</option>
-            <option value="4">★★★★☆ (4)</option>
-            <option value="3">★★★☆☆ (3)</option>
-            <option value="2">★★☆☆☆ (2)</option>
-            <option value="1">★☆☆☆☆ (1)</option>
-          </select>
+          <label id="review-rating-label">Vaša ocena — prevucite prstom preko zvezdica</label>
+          <div id="review-stars" class="review-stars-input" role="group" aria-labelledby="review-rating-label">
+            <input id="review-rating" type="hidden" name="rating" value="5">
+            <button type="button" data-rating="1" aria-label="1 zvezdica">★</button>
+            <button type="button" data-rating="2" aria-label="2 zvezdice">★</button>
+            <button type="button" data-rating="3" aria-label="3 zvezdice">★</button>
+            <button type="button" data-rating="4" aria-label="4 zvezdice">★</button>
+            <button type="button" data-rating="5" aria-label="5 zvezdica">★</button>
+          </div>
           <label for="review-comment">Vaše mišljenje</label>
           <textarea id="review-comment" name="comment" minlength="10" maxlength="1000" rows="4" required></textarea>
           <p class="review-note">Recenzija se objavljuje nakon provere. Prihvatamo i pohvale i kritike.</p>

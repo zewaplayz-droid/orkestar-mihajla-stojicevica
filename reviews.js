@@ -1,5 +1,5 @@
 const REVIEW_API = "https://txwhkspbiauzlnvfvvzq.supabase.co/rest/v1/reviews";
-const SUBMIT_API = "https://txwhkspbiauzlnvfvvzq.supabase.co/functions/v1/smooth-responder";
+const SUBMIT_API = "https://txwhkspbiauzlnvfvvzq.supabase.co/functions/v1/moderate-review";
 const TURNSTILE_SITE_KEY = "0x4AAAAAAFhj1o6kK0bdV-Oi";
 let turnstileWidgetId = null;
 function ensureTurnstile() {

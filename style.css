@@ -326,3 +326,14 @@ h1 {
     min-height: 59px;
   }
 }
+
+/* SVG social icons and refined arrows */
+html { background:#080808; overscroll-behavior-y:none; }
+body { background-color:#080808; min-height:100svh; }
+.social svg { width:21px; height:21px; fill:none; stroke:currentColor; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round; }
+.social.facebook svg { fill:currentColor; stroke:none; }
+.arrow { width:29px; height:29px; display:grid; place-items:center; border:1px solid rgba(242,217,156,.45); border-radius:50%; background:rgba(216,182,108,.07); }
+.arrow svg { width:16px; height:16px; fill:none; stroke:currentColor; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round; }
+.link:hover .arrow { transform:translateX(3px); background:rgba(216,182,108,.2); }
+.booking .arrow { border-color:rgba(36,27,13,.3); background:rgba(0,0,0,.07); }
+.booking:hover .arrow { transform:translateX(3px); }

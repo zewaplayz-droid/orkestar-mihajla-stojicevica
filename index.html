@@ -74,8 +74,32 @@
         </a>
       </div>
 
+      <section class="reviews-section" aria-labelledby="reviews-heading">
+        <h2 id="reviews-heading">Utisci o orkestru</h2>
+        <p class="reviews-intro">Podelite svoje iskreno mišljenje o našem radu.</p>
+        <div id="reviews-list" class="reviews-list" aria-live="polite">Učitavanje recenzija...</div>
+        <button type="button" id="review-toggle" class="review-toggle" aria-expanded="false">Ostavite recenziju</button>
+        <form id="review-form" class="review-form" hidden>
+          <label for="review-name">Ime</label>
+          <input id="review-name" name="name" minlength="2" maxlength="60" required>
+          <label for="review-rating">Ocena (1–5)</label>
+          <select id="review-rating" name="rating" required>
+            <option value="5">★★★★★ (5)</option>
+            <option value="4">★★★★☆ (4)</option>
+            <option value="3">★★★☆☆ (3)</option>
+            <option value="2">★★☆☆☆ (2)</option>
+            <option value="1">★☆☆☆☆ (1)</option>
+          </select>
+          <label for="review-comment">Vaše mišljenje</label>
+          <textarea id="review-comment" name="comment" minlength="10" maxlength="1000" rows="4" required></textarea>
+          <p class="review-note">Recenzija se objavljuje nakon provere. Prihvatamo i pohvale i kritike.</p>
+          <button class="review-submit" type="submit">Pošalji recenziju</button>
+          <p id="review-feedback" role="status"></p>
+        </form>
+      </section>
       <p class="footer">© Orkestar Mihajla Stojićevića</p>
     </section>
   </main>
+  <script src="reviews.js" defer></script>
 </body>
 </html>

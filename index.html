@@ -78,6 +78,11 @@
         <h2 id="reviews-heading">Utisci o orkestru</h2>
         <p class="reviews-intro">Podelite svoje iskreno mišljenje o našem radu.</p>
         <div id="reviews-list" class="reviews-list" aria-live="polite">Učitavanje recenzija...</div>
+        <div id="review-navigation" class="review-navigation" hidden>
+          <button type="button" id="review-prev" aria-label="Prethodna recenzija">‹</button>
+          <span id="review-position" aria-live="off"></span>
+          <button type="button" id="review-next" aria-label="Sledeća recenzija">›</button>
+        </div>
         <button type="button" id="review-toggle" class="review-toggle" aria-expanded="false">Ostavite recenziju</button>
         <form id="review-form" class="review-form" hidden>
           <label for="review-name">Ime i prezime (obavezno)</label>

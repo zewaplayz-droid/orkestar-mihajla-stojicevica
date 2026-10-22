@@ -337,3 +337,45 @@ body { background-color:#080808; min-height:100svh; }
 .link:hover .arrow { transform:translateX(3px); background:rgba(216,182,108,.2); }
 .booking .arrow { border-color:rgba(36,27,13,.3); background:rgba(0,0,0,.07); }
 .booking:hover .arrow { transform:translateX(3px); }
+
+/* Compact single-screen responsive layout */
+.page { min-height:100svh; padding:clamp(10px,2vh,22px) 14px; align-items:center; }
+.profile { width:min(100%,440px); }
+.photo-wrap { width:clamp(76px,12vh,110px); height:clamp(76px,12vh,110px); margin-bottom:clamp(5px,1vh,10px); }
+h1 { font-size:clamp(21px,3.8vh,29px); }
+.subtitle { margin:5px 0 clamp(8px,1.5vh,13px); font-size:13px; }
+.video-card { padding:8px; border-radius:15px; margin-bottom:9px; }
+.video-title { margin:0 3px 6px; font-size:12px; }
+.video-frame { border-radius:10px; }
+.booking,.link { min-height:clamp(42px,6.3vh,52px); border-radius:12px; }
+.booking { margin-bottom:8px; }
+.booking-text strong { font-size:14px; }
+.booking-text small { font-size:12px; margin-top:1px; }
+.booking-icon { font-size:19px; }
+.links { grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px; }
+.link { font-size:13px; padding:0 30px; }
+.social { left:8px; width:25px; height:25px; border-radius:7px; }
+.social svg { width:17px; height:17px; }
+.arrow { right:8px; width:22px; height:22px; }
+.arrow svg { width:13px; height:13px; }
+.footer { margin:clamp(7px,1.5vh,13px) 0 0; font-size:10px; }
+@media (max-height:740px) {
+ .page { padding-top:8px; padding-bottom:8px; }
+ .photo-wrap { width:76px; height:76px; margin-bottom:5px; }
+ h1 { font-size:21px; }
+ .subtitle { margin:4px 0 7px; }
+ .video-card { margin-bottom:7px; }
+ .booking,.link { min-height:42px; }
+ .links { gap:6px; }
+ .footer { margin-top:7px; }
+}
+@media (max-width:350px) {
+ .link { font-size:12px; padding:0 24px; }
+ .social { left:5px; }
+ .arrow { right:5px; }
+}
+@media (max-height:570px) and (orientation:landscape) {
+ .page { align-items:flex-start; }
+ .profile { width:min(100%,420px); }
+}
+/* Allow scrolling only when the physical screen is too small to display usable controls. */

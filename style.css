@@ -379,3 +379,9 @@ h1 { font-size:clamp(21px,3.8vh,29px); }
  .profile { width:min(100%,420px); }
 }
 /* Allow scrolling only when the physical screen is too small to display usable controls. */
+
+/* Optical vertical centering: lift the entire content as one unit. */
+.page { align-items:center; }
+.profile { transform:translateY(-18px); }
+@media (max-height:740px) { .profile { transform:translateY(-10px); } }
+@media (max-height:570px) and (orientation:landscape) { .profile { transform:none; } }

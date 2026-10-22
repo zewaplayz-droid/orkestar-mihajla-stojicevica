@@ -121,7 +121,7 @@ form.addEventListener("submit", async event => {
   const name = String(data.get("name") || "").trim();
   const comment = String(data.get("comment") || "").trim();
   const rating = Number(data.get("rating"));
-  if (!/^\S+\s+\S+/.test(name) || name.length > 60 || comment.length < 10 || comment.length > 1000 || !Number.isInteger(rating) || rating < 1 || rating > 5) {
+  if (name.length < 2 || name.length > 60 || comment.length < 10 || comment.length > 1000 || !Number.isInteger(rating) || rating < 1 || rating > 5) {
     feedback.textContent = "Proverite unete podatke."; return;
   }
   button.disabled = true;

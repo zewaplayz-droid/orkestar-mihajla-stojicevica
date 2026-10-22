@@ -48,34 +48,71 @@ toggle.addEventListener("click", () => {
   toggle.setAttribute("aria-expanded", String(!form.hidden));
   if (!form.hidden) form.querySelector("input").focus();
 });
+const reviewNavigation = document.getElementById("review-navigation");
+const reviewPosition = document.getElementById("review-position");
+const reviewPrev = document.getElementById("review-prev");
+const reviewNext = document.getElementById("review-next");
+let approvedReviews = [];
+let activeReview = 0;
+let reviewTimer;
+function showReview(index) {
+  if (!approvedReviews.length) return;
+  activeReview = (index + approvedReviews.length) % approvedReviews.length;
+  const review = approvedReviews[activeReview];
+  const card = document.createElement("article");
+  card.className = "review-card";
+  const name = document.createElement("strong");
+  name.textContent = review.name;
+  const comment = document.createElement("p");
+  comment.textContent = "„" + review.comment + "“";
+  const stars = document.createElement("div");
+  stars.className = "review-card-stars";
+  stars.textContent = "★".repeat(review.rating) + "☆".repeat(5 - review.rating);
+  card.append(name, comment, stars);
+  list.replaceChildren(card);
+  reviewPosition.textContent = (activeReview + 1) + " / " + approvedReviews.length;
+}
+function startReviewTimer() {
+  clearInterval(reviewTimer);
+  if (approvedReviews.length > 1 && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    reviewTimer = setInterval(() => {
+      if (!document.hidden && !list.matches(":hover") && !list.contains(document.activeElement)) showReview(activeReview + 1);
+    }, 6000);
+  }
+}
+function navigateReviews(direction) {
+  showReview(activeReview + direction);
+  startReviewTimer();
+}
+reviewPrev.addEventListener("click", () => navigateReviews(-1));
+reviewNext.addEventListener("click", () => navigateReviews(1));
+let swipeStartX = null;
+list.addEventListener("touchstart", event => {
+  swipeStartX = event.touches.length === 1 ? event.touches[0].clientX : null;
+}, {passive:true});
+list.addEventListener("touchend", event => {
+  if (swipeStartX === null || !event.changedTouches.length) return;
+  const distance = event.changedTouches[0].clientX - swipeStartX;
+  swipeStartX = null;
+  if (Math.abs(distance) > 45 && approvedReviews.length > 1) navigateReviews(distance < 0 ? 1 : -1);
+}, {passive:true});
+list.addEventListener("touchcancel", () => { swipeStartX = null; });
 async function loadReviews() {
   try {
-    const response = await fetch(REVIEW_API + "?select=name,rating,comment,created_at&approved=eq.true&order=created_at.desc&limit=12", {headers: reviewHeaders});
+    const response = await fetch(REVIEW_API + "?select=name,rating,comment,created_at&approved=eq.true&order=created_at.desc&limit=100", {headers: reviewHeaders});
     if (!response.ok) throw new Error("load");
-    const reviews = await response.json();
-    list.replaceChildren();
-    if (!reviews.length) {
-      const empty = document.createElement("p");
-      empty.className = "reviews-muted";
-      empty.textContent = "Još nema objavljenih recenzija. Budite prvi koji će podeliti mišljenje!";
-      list.append(empty);
+    approvedReviews = await response.json();
+    if (!approvedReviews.length) {
+      list.textContent = "Još nema objavljenih recenzija. Budite prvi koji će podeliti mišljenje!";
+      reviewNavigation.hidden = true;
       return;
     }
-    for (const review of reviews) {
-      const card = document.createElement("article");
-      card.className = "review-card";
-      const stars = document.createElement("div");
-      stars.className = "review-card-stars";
-      stars.textContent = "★".repeat(review.rating) + "☆".repeat(5-review.rating);
-      const comment = document.createElement("p");
-      comment.textContent = "„" + review.comment + "“";
-      const name = document.createElement("strong");
-      name.textContent = review.name;
-      card.append(name, comment, stars);
-      list.append(card);
-    }
+    reviewNavigation.hidden = approvedReviews.length < 2;
+    showReview(0);
+    startReviewTimer();
   } catch {
     list.textContent = "Recenzije trenutno nisu dostupne. Pokušajte ponovo kasnije.";
+    reviewNavigation.hidden = true;
   }
 }
 form.addEventListener("submit", async event => {

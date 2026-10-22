@@ -407,3 +407,24 @@ h1 { font-size:clamp(21px,3.8vh,29px); }
 .booking-options .arrow { right:6px; width:20px; height:20px; }
 .booking-sms { background:linear-gradient(110deg,#856128,#e4c179 48%,#a97d36); }
 @media(max-width:360px) { .booking-options .booking { padding-right:22px; gap:3px; } .booking-options .booking-text strong { font-size:12px; } .booking-options .booking-text small { font-size:9px; } .booking-options .arrow { right:3px; width:17px; height:17px; } }
+
+/* Real customer reviews */
+.reviews-section { margin-top:18px; padding:16px; border:1px solid var(--border); border-radius:16px; background:rgba(0,0,0,.34); text-align:left; }
+.reviews-section h2 { margin:0 0 5px; font-size:19px; color:var(--gold-light); }
+.reviews-intro,.reviews-muted,.review-note { color:#c6c0b5; font-size:12px; line-height:1.5; }
+.reviews-intro { margin:0 0 12px; }
+.reviews-list { display:grid; gap:9px; font-size:13px; }
+.review-card { padding:12px; border:1px solid rgba(216,182,108,.18); border-radius:12px; background:rgba(255,255,255,.045); }
+.review-card-stars { color:#f0ce7c; letter-spacing:2px; font-size:16px; }
+.review-card p { margin:7px 0; line-height:1.5; overflow-wrap:anywhere; }
+.review-card strong { color:#e8d3a1; font-size:12px; }
+.review-toggle,.review-submit { display:block; width:100%; border:1px solid var(--gold); border-radius:10px; padding:12px; font:inherit; font-weight:700; cursor:pointer; background:linear-gradient(110deg,#987039,#f0d28e,#b78b46); color:#17110a; }
+.review-toggle { margin-top:12px; }
+.review-form { margin-top:13px; }
+.review-form[hidden] { display:none; }
+.review-form label { display:block; margin:10px 0 5px; color:#e9dbbb; font-size:13px; }
+.review-form input,.review-form select,.review-form textarea { display:block; width:100%; padding:10px; border:1px solid rgba(216,182,108,.35); border-radius:9px; background:#171511; color:#fff; font:inherit; font-size:14px; }
+.review-form textarea { resize:vertical; }
+.review-form :focus-visible,.review-toggle:focus-visible { outline:2px solid var(--gold-light); outline-offset:2px; }
+.review-submit:disabled { opacity:.65; cursor:wait; }
+#review-feedback { font-size:13px; color:var(--gold-light); line-height:1.5; }

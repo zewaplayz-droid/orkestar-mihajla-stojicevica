@@ -1,4 +1,11 @@
 const REVIEW_API = "https://txwhkspbiauzlnvfvvzq.supabase.co/rest/v1/reviews";
+const SUBMIT_API = "https://txwhkspbiauzlnvfvvzq.supabase.co/functions/v1/smooth-responder";
+const TURNSTILE_SITE_KEY = "0x4AAAAAAFhj1o6kK0bdV-Oi";
+let turnstileWidgetId = null;
+function ensureTurnstile() {
+  if (turnstileWidgetId !== null || !window.turnstile) return;
+  turnstileWidgetId = window.turnstile.render("#review-turnstile", { sitekey: TURNSTILE_SITE_KEY, theme: "dark" });
+}
 const REVIEW_KEY = "sb_publishable_xArIlN5UMN28xofNHpeUOQ_aRz6b2Tk";
 const reviewHeaders = { apikey: REVIEW_KEY, Authorization: "Bearer " + REVIEW_KEY };
 const list = document.getElementById("reviews-list");
@@ -46,7 +53,10 @@ setRating(5);
 toggle.addEventListener("click", () => {
   form.hidden = !form.hidden;
   toggle.setAttribute("aria-expanded", String(!form.hidden));
-  if (!form.hidden) form.querySelector("input").focus();
+  if (!form.hidden) {
+    form.querySelector("input").focus();
+    ensureTurnstile();
+  }
 });
 const reviewNavigation = document.getElementById("review-navigation");
 const reviewPrev = document.getElementById("review-prev");
@@ -124,21 +134,30 @@ form.addEventListener("submit", async event => {
   if (name.length < 2 || name.length > 60 || comment.length < 10 || comment.length > 1000 || !Number.isInteger(rating) || rating < 1 || rating > 5) {
     feedback.textContent = "Proverite unete podatke."; return;
   }
+  ensureTurnstile();
+  const turnstileToken = turnstileWidgetId === null ? "" : window.turnstile.getResponse(turnstileWidgetId);
+  if (!turnstileToken) {
+    feedback.textContent = "Sačekajte CAPTCHA proveru i pokušajte ponovo.";
+    return;
+  }
   button.disabled = true;
   feedback.textContent = "Slanje...";
   try {
-    const response = await fetch(REVIEW_API, {
+    const response = await fetch(SUBMIT_API, {
       method: "POST",
-      headers: {...reviewHeaders, "Content-Type": "application/json", Prefer: "return=minimal"},
-      body: JSON.stringify({name, rating, comment})
+      headers: {"Content-Type": "application/json", apikey: REVIEW_KEY},
+      body: JSON.stringify({name, rating, comment, turnstileToken})
     });
-    if (!response.ok) throw new Error("submit");
+    const result = await response.json().catch(() => ({}));
+    if (!response.ok || !result.success) throw new Error(result.error || "Slanje nije uspelo.");
     form.reset();
     setRating(5);
-    feedback.textContent = "Hvala na vašem mišljenju! Recenzija će biti objavljena nakon provere.";
-  } catch {
-    feedback.textContent = "Slanje nije uspelo. Pokušajte ponovo.";
+    feedback.textContent = result.message || (result.approved ? "Recenzija je objavljena!" : "Recenzija je poslata na proveru.");
+    if (result.approved) await loadReviews();
+  } catch (error) {
+    feedback.textContent = error.message || "Slanje nije uspelo. Pokušajte ponovo.";
   } finally {
+    if (turnstileWidgetId !== null && window.turnstile) window.turnstile.reset(turnstileWidgetId);
     button.disabled = false;
   }
 });

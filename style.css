@@ -428,3 +428,12 @@ h1 { font-size:clamp(21px,3.8vh,29px); }
 .review-form :focus-visible,.review-toggle:focus-visible { outline:2px solid var(--gold-light); outline-offset:2px; }
 .review-submit:disabled { opacity:.65; cursor:wait; }
 #review-feedback { font-size:13px; color:var(--gold-light); line-height:1.5; }
+
+/* Swipeable star rating: touch, mouse drag, click and keyboard */
+.review-stars-input { display:flex; width:min(100%,280px); align-items:center; justify-content:space-between; gap:4px; margin:7px 0 12px; touch-action:none; user-select:none; -webkit-user-select:none; }
+.review-stars-input button { flex:1; min-width:0; min-height:48px; padding:0; border:0; background:transparent; color:#625b4e; font-size:36px; line-height:1; cursor:pointer; touch-action:none; -webkit-tap-highlight-color:transparent; }
+.review-stars-input button.selected { color:#f0ce7c; text-shadow:0 0 13px rgba(240,206,124,.3); }
+.review-stars-input button:focus-visible { outline:2px solid var(--gold-light); border-radius:6px; }
+.review-card strong { display:block; font-size:14px; }
+.review-card p { margin:8px 0 9px; }
+.review-card-stars { margin-top:2px; }
